@@ -1,0 +1,14 @@
+
+List<Contact> contactsToUpdate = [SELECT Id, Email FROM Contact WHERE LastName LIKE 'Test%'];
+
+for(Contact con : contactsToUpdate) {
+    con.Email = 'updated_' + con.Email;
+}
+
+update contactsToUpdate;
+
+---------------------------------------------------------------------------------------------------------------------
+
+Have Run This SOQL Query to See the Results
+
+SELECT LastName, Email, Description FROM Contact WHERE LastName LIKE 'Test%'

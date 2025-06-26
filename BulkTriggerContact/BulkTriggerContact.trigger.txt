@@ -1,0 +1,19 @@
+trigger BulkTriggerContact on Contact (after update) {
+    List<Contact> contactsToUpdate = new List<Contact>();
+
+    for(Contact con : Trigger.new) {
+        Contact oldCon = Trigger.oldMap.get(con.Id);
+        
+        if(con.Email != oldCon.Email) {
+            Contact contactToUpdate = new Contact(
+                Id = con.Id,
+                Description = 'Email was changed from ' + oldCon.Email + ' to ' + con.Email
+            );
+            contactsToUpdate.add(contactToUpdate);
+        }
+    }
+
+    if(!contactsToUpdate.isEmpty()) {
+        update contactsToUpdate;
+    }
+}
